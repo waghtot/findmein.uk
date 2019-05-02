@@ -1,6 +1,7 @@
 // add ads from everywhere
 var addtype = '';
 
+
 var newads = {
     initialise : function(){
 
@@ -24,7 +25,6 @@ var newads = {
             newads.print_form();
             newads.change_title('Nieruchomości');
         });
-
     },
 
     print_form : function(){
@@ -57,6 +57,7 @@ var newads = {
             break;
         }
     }
+
 }
 
 var init = function(){
