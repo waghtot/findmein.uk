@@ -1,5 +1,9 @@
 <script type="text/javascript" src="app/views/js/home/prev_ads.js"></script>
-<form name="ads" method="post" id="new_ad">
+
+
+<div id="this_prev"></div>
+
+<form name="ads" method="POST" id="new_ad">
 
 <div class="form-group">
   <div class="row">
@@ -34,10 +38,10 @@
   <div class="row">
     <div class="col-7">
       <div class="input-group mb-3">
-        <div class="custom-file">
+        <!-- <div class="custom-file">
           <input type="file" class="custom-file-input" id="ad_img">
           <label class="custom-file-label" for="img">Dodaj zdjęcie</label>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="col-5">

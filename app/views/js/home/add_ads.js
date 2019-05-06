@@ -25,13 +25,15 @@ var newads = {
             newads.print_form();
             newads.change_title('Nieruchomości');
         });
+
+        $('#back').hide();
     },
 
     print_form : function(){
         $.ajax({
             type: "GET",
             url: "app/views/pages/partial/add_form.php",
-            data: { },
+            data: {},
             success: function(data){
               $('#modal_form').html(data);
             }

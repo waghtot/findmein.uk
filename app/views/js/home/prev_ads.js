@@ -3,8 +3,13 @@ var radio ='0';
 var prev_form = {
     build_prev : function(){
         
+        $('#back').click(function(){
+            prev_form.hide_preview(); 
+        });
+
         $('#ad_prev').click(function(){
-            console.log(prev_form.check_input_data());
+            prev_form.hide_form();
+            prev_form.print_prev();
         });
 
         $('#customRadio1').click(function(){
@@ -18,7 +23,23 @@ var prev_form = {
         });
     },
 
-    check_input_data : function(){
+    hide_form : function(){
+        $('#this_prev').show();
+        $('#new_ad').hide();
+        $('#save').hide();
+        $('#close').hide();
+        $('#back').show(); 
+    },
+
+    hide_preview : function(){
+        $('#this_prev').hide('');
+        $('#new_ad').show();
+        $('#save').show();
+        $('#close').show();
+        $('#back').hide();
+    },
+
+    input_data : function(){
         var data = {
             "type" : radio,
             "category" : $('#category').val(),
@@ -33,7 +54,27 @@ var prev_form = {
             "postcode" : $('#ad_postcode').val()
         }
         return data; 
+    },
+
+    validate_data : function (e){
+        return true;
+    },
+
+    validate_email : function (e){
+
+    },
+
+    print_prev : function (){
+        $.ajax({
+            type: "POST",
+            url: "app/views/pages/partial/ad_prev.php",
+            data: prev_form.input_data(),
+            success: function(data){
+              $('#this_prev').html(data);
+            }
+        });
     }
+
 }
 
 var init = function(){

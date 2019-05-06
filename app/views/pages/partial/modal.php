@@ -11,8 +11,9 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary push-left" data-dismiss="modal">Zamknij</button>
-        <button type="button" class="btn btn-success push-right">Zapisz</button>
+        <button type="button" class="btn btn-secondary push-left" data-dismiss="modal" id="close">Zamknij</button>
+        <button type="button" class="btn btn-success push-right" id="save">Zapisz</button>
+        <button type="button" class="btn btn-success push-right" id="back">Wróć</button>
       </div>
     </div>
   </div>
