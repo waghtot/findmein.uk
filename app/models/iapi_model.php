@@ -1,30 +1,45 @@
 <?php
-class IapiModel{
-    public static function doIAPI($action, $params)
-    {
-        $ch = curl_init();
+
+
+// $data = array();
+// //$data['environment'] = 'DEV';
+// $data['connection'] = 'MMCORE';
+// $data['procedure'] = 'user_login';
+// $data['params']['login'] = 'waghtot@gmail.com';
+// $data['params']['password'] = md5('Klamka22k!');
+
+// $request = json_encode($data);
+// $res = iapi_model::doIAPI('database', $request);
+
+// error_log('response: '.print_r($res, 1));
+
+// echo "<pre>".print_r($res[0], 1)."</pre>";
+
+
+class iapi_model{
+
+    public static function doIAPI($iapiName, $jsonString){
     
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    $postData = 'request=' . $jsonString;
+
+    $iapiURL = trim("http://iapi-".$iapiName.".dev.com/");
     
-        curl_setopt($ch, CURLOPT_URL, $iapiURL);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
-        curl_setopt($ch, CURLOPT_USERPWD, \constants::GETWAPIUSERNAME . ':' . \constants::GETWAPIPASSWORD);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonString);
-    
-        $res = curl_exec($ch);
-    
-        // Check if any error occurred and if yes, redirect to maintenance page
-        if (curl_errno($ch)) {
-            header('Location: /maintenance.php');
-        }
-      
-        curl_close($ch);
-      
-        $response = json_decode($res, true);
+    // error_log($iapiURL);
+
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL, $iapiURL);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
+    curl_setopt($ch, CURLOPT_ENCODING, 'UTF-8');
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+    $res = json_decode(curl_exec($ch), true, JSON_UNESCAPED_UNICODE);
+    curl_close($ch);
+
+    return $res;
     }
 }

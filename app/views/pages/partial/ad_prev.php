@@ -17,6 +17,7 @@
 if(isset($_POST)){
     $data = array();
     $data = $_POST;
+  // error_log('category list: '.print_r($_POST, 1));
 }
 
 ?>
@@ -25,7 +26,7 @@ if(isset($_POST)){
   <div class="card-body">
     <h4 class="card-title"><?php echo $data['title']; ?></h4>
     <h6 class="card-subtitle mb-2 text-muted">
-        <?php echo $data['category']; ?>
+        <?php // echo $data['category']; ?>
     </h6>
     <p class="card-text">
         <?php echo $data['content']; ?>

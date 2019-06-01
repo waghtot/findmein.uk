@@ -24,12 +24,12 @@ require_once "app/views/pages/partial/lauout_drawt.php";
 ?>
 <!-- End Layout -->
 
-        <script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
-        <script src="https://bootswatch.com/_vendor/popper.js/dist/umd/popper.min.js"></script>
-        <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="https://bootswatch.com/_assets/js/custom.js"></script>
+        <script type="text/javascript" src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="https://bootswatch.com/_vendor/popper.js/dist/umd/popper.min.js"></script>
+        <script type="text/javascript" src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://bootswatch.com/_assets/js/custom.js"></script>
 
-        <script src="app/views/js/home/add_ads.js"></script>
+        <script type="text/javascript" src="app/views/js/home/add_ads.js"></script>
 
     </body>
 </html>

@@ -19,9 +19,10 @@
         <label class="custom-control-label" for="customRadio2"  id="ad_radio2">Szukam</label>
       </div>
     </div>
+    <!-- category here -->
     <div class="col-6">
-      <select name="category" class="form-control" id="ad_category">
-        <option value="0"> Wybierz Kategorię</option>
+      <!-- <select name="category" class="form-control" id="ad_category">  -->
+        <!-- <option value="0"> Wybierz Kategorię</option> -->
       </select>
     </div>
   </div>
@@ -51,7 +52,7 @@
 </div>
 
 <div class="form-group">
-  <h5>Dane kontaktowe</h5>
+  <h5>Dane Kontaktowe</h5>
 </div>
 
 <div class="form-group">
@@ -76,7 +77,7 @@
   </div>
 </div>
 <div class="form-group">
-  <h5>Dostępność</h5>
+  <h5>Dostępność Oferty</h5>
 </div>
 <div class="form-group">
   <div class="row">

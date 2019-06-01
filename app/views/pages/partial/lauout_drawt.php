@@ -14,7 +14,7 @@
         <div class="col-4">
             <div class="list-group">
                 <span class="list-group-item list-group-item-action active">
-                    <div style="float:left;">HANDEL</div><div style="float:right; cursor:pointer;" id="trade" value="trade">Dodaj</div>
+                    <div style="float:left;">PRACA</div><div style="float:right; cursor:pointer;" id="trade" value="trade">Dodaj</div>
                 </span>
             </div>
             <?php

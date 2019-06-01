@@ -1,4 +1,12 @@
 <?php
-define('CONF', '/etc/config/');
-$_SESSION['constants'] = parse_ini_file(CONF."findmein_uk.ini");
-error_log('constants: '.print_r($_SESSION, 1));
+define('MET', 'app/config/methods.json');
+
+$_SESSION['constants'] = array(
+    "language"=>array(
+        "PL"=>"616",
+        "GB"=>"826"
+    ),
+    "Project_ID"=>"3",
+    "Client_ID"=>"1"
+);
+
