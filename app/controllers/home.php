@@ -42,7 +42,6 @@ class Home
             $data['params']['project_id'] = self::get_project_id();
             $data['params']['user_id'] = self::get_user_id();
             $data['params']['language'] = self::get_language_id();
-            $data['params']['parent_id'] = self::get_parent_id();
             $data['params']['type'] = $_POST['type'];
             $data['params']['category'] = $_POST['category'];
             $data['params']['title'] = $_POST['title'];
@@ -51,15 +50,37 @@ class Home
             $data['params']['phone'] = $_POST['phone'];
             $data['params']['email'] = $_POST['email'];
             $data['params']['www'] = $_POST['www'];
-            $data['params']['city'] = $_POST['city'];
+            $data['params']['range'] = $_POST['range'];
             $data['params']['postcode'] = $_POST['postcode'];
 
             error_log('response from db '.print_r($data, 1));
 
             // $res = iapi_model::doIAPI('database', json_encode($data));
 
+            /* response:
+                code
+                message
+                ID_Content,
+                ID_Client,
+                User_Email */
+
+            if($res['code']!='6000'){
+
+            }else{
+
+                $data = array();
+                $data['connection']='MMCONTENT';
+                $data['procedure']=__FUNCTION__;
+                $data['params']['client_id'] = self::get_client_id();
+                $res = iapi_model::doIAPI('application', json_encode($data));
+            }
+
             // error_log('response from db '.print_r($res, 1));
         }
+    }
+
+    public function create_token(){
+
     }
 
     public function get_language_id(){
@@ -90,8 +111,3 @@ class Home
         }
     }
 }
-
-
-// if(!empty($inmethod)){
-//     $this->$inmethod();
-// }

@@ -100,7 +100,7 @@ var newads = {
                 "phone" : $('#ad_phone').val(),
                 "email" : $('#ad_email').val(),
                 "www" : $('#ad_www').val(),
-                "city" : $('#ad_city').val(),
+                "range" : $('#ad_city').val(),
                 "postcode" : $('#ad_postcode').val()
             }
         }).done(function(){
