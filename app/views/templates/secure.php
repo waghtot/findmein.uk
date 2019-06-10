@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" href="https://bootswatch.com/4/simplex/bootstrap.css" media="screen">
     <link rel="stylesheet" href="app/views/css/custom.min.css">
+    <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+    <script src="app/views/js/sweetalert.min.js"></script>
     </head>
     <body>
 

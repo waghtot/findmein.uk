@@ -1,8 +1,8 @@
 <?php
 class Home
 {
-    public function __construct($data){
-        return $this->$data();
+    public function __construct(){
+
     }
 
     public function index(){
@@ -13,16 +13,11 @@ class Home
 
         error_log('incomming post: '.print_r($_POST, 1));
 
-
-
         $data = array();
         $data['code']='600';
         $data['message']='ok';
         echo json_encode($data);
-        // ob_clean();
-        // echo json_encode($data);
         error_log('outgoing json: '.print_r(json_encode($data), 1));
-        die;
 
     }
 
@@ -53,9 +48,9 @@ class Home
             $data['params']['range'] = $_POST['range'];
             $data['params']['postcode'] = $_POST['postcode'];
 
-            error_log('response from db '.print_r($data, 1));
+            // error_log('response from db '.print_r($data, 1));
 
-            // $res = iapi_model::doIAPI('database', json_encode($data));
+            $res = iapi_model::doIAPI('database', json_encode($data));
 
             /* response:
                 code
@@ -64,16 +59,13 @@ class Home
                 ID_Client,
                 User_Email */
 
-            if($res['code']!='6000'){
+            error_log('response from db '.print_r($res, 1));
 
-            }else{
-
-                $data = array();
-                $data['connection']='MMCONTENT';
-                $data['procedure']=__FUNCTION__;
-                $data['params']['client_id'] = self::get_client_id();
-                $res = iapi_model::doIAPI('application', json_encode($data));
-            }
+            // if($res['code']!='6000'){
+            //     echo "success";
+            // }else{
+            //     echo "ups...";
+            // }
 
             // error_log('response from db '.print_r($res, 1));
         }
@@ -99,7 +91,7 @@ class Home
         if(isset($_SESSION['user'])){
             return $_SESSION['user'];
         }else{
-            return null;
+            return 0;
         }
     }
 

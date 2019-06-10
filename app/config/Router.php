@@ -14,9 +14,15 @@ class Router{
     public function index(){
 
         $this->getClass();
-        $this->getMethod();
-        $method = $this->method;
-        return $this->page::$method();
+        $this->method = $this->getMethod();
+
+        if($this->method !== false){
+            $method = $this->method;
+            return $this->page::$method();
+        }else{
+            return $this->page;
+        }
+
     }
 
     public function checkRequest(){
@@ -55,7 +61,7 @@ class Router{
         $data = $this->checkIfMethodExists($this->request[1]);
         // error_log('and the method is:.... '.print_r($data, 1));
         if($data !== false){
-            $this->method = $data;
+            return $data;
         }else{
             return false;
         }

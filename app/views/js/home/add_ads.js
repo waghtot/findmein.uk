@@ -105,6 +105,10 @@ var newads = {
             }
         }).done(function(){
             console.log('all good, all done ' + radio + ' category ' + addtype );
+            $('#modal_add').modal('hide');
+            swal(
+                "looks good", "ads has been added", "success"
+            );
         });
     }
 

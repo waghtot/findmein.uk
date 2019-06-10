@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'API_Model' => $baseDir . '/app/models/api_model.php',
     'Home' => $baseDir . '/app/controllers/home.php',
     'Router' => $baseDir . '/app/config/Router.php',
     'iapi_model' => $baseDir . '/app/models/iapi_model.php',
