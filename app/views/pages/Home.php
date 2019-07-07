@@ -18,9 +18,9 @@
                 </span>
             </div>
             <?php
-                for($a=0; $a<1; $a++){
-                    require "card_small.php";
-                }
+
+                show_ads(1, 0, $data);
+
             ?>
         </div>
         <div class="col-4">
@@ -30,9 +30,9 @@
                 </span>
             </div>
             <?php
-                for($a=0; $a<1; $a++){
-                    require "card_small.php";
-                }
+
+                show_ads(2, 0, $data);
+
             ?>
         </div>
         <div class="col-4">
@@ -41,19 +41,24 @@
                     <div style="float:left;">NIERUCHOMOŚCI</div><div style="float:right; cursor:pointer;" id="property">Dodaj</div>
                 </span>
             </div>
-            <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action disabled">Do wynajęcia
-                </a>
-            </div>
             <?php
-                for($a=0; $a<1; $a++){
-                    require "card_small.php";
-                }
+
+                show_ads(3, 0, $data);
+            
             ?>
         </div>
     </div>
 </div>
 
 <?php
-require_once "modal.php";
+
+function show_ads($category, $type, $data){
+    foreach ($data AS $value){
+        if($value['Category_ID'] == $category &&  $value['Type_ID'] == $type){
+            View::partial('card_small', $value);
+        }
+    }
+}
+
+require_once "app/views/pages/modals/modal.php";
 ?>

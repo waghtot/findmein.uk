@@ -1,0 +1,15 @@
+[
+    {
+        "post":{
+            "home/getCategory":"get_category",
+            "home/submitAds":"submit_ads",
+            "home/editAds":"edit_ads"
+        },
+        
+        "get":{
+            "home":"Home",
+            "home/user":"User",
+            "user":"User"
+        }
+    }
+]

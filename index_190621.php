@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once "vendor/autoload.php";
+require "vendor/autoload.php";
 require_once "app/config/constants.php";
+require_once "app/views/templates/secure.php";
 
 new Router();
 
-ob_flush();
 ?>

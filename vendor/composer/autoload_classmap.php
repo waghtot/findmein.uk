@@ -6,8 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'API_Model' => $baseDir . '/app/models/api_model.php',
     'Home' => $baseDir . '/app/controllers/home.php',
+    'Master' => $baseDir . '/app/controllers/master.php',
+    'Partial' => $baseDir . '/app/models/partil_view.php',
     'Router' => $baseDir . '/app/config/Router.php',
+    'User' => $baseDir . '/app/controllers/user.php',
+    'View' => $baseDir . '/app/config/views.php',
     'iapi_model' => $baseDir . '/app/models/iapi_model.php',
 );

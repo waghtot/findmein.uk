@@ -1,94 +1,89 @@
 <?php
 class Router{
 
-    private $page;
-    private $method;
-    private $request;
-
     public function __construct(){
-        if ($this->checkRequest() !== false){
-            return $this->index();
-        };
+        return $this->index();
     }
 
     public function index(){
-
-        $this->getClass();
-        $this->method = $this->getMethod();
-
-        if($this->method !== false){
-            $method = $this->method;
-            return $this->page::$method();
-        }else{
-            return $this->page;
-        }
-
+        return $this->checkRequest();
     }
 
     public function checkRequest(){
-        if(strlen($_SERVER['REQUEST_URI'])>1 && strtolower($_SERVER['REQUEST_METHOD'])=='post'){
 
-            foreach(explode("/", $_SERVER['REQUEST_URI']) as $key=>$value){
+        switch($this->requestType()){
+            case 'get':
+                $this->createGetRequest()::index();
+            break;
 
-                    if(strlen($value)<1){
-                        unset($key);
-                    }else{
-                        $this->request[] = $value;         
-                    }
-                }
-            error_log('request data: '.print_r($this->request, 1));
-            return true;
-        }else{
-            return false;
+            case 'post':
+                $this->createPostRequest();
+            break;
+
+            default:
+                $this->createGetRequest()::index();
+            break;
         }
     }
 
-    public function getClass(){
+    public function requestType(){
+       return strtolower($_SERVER['REQUEST_METHOD']);
+    }
 
-        if(isset($this->request[0])){
-            if($this->checkIfClassExists(ucwords($this->request[0]))!==false){
-                $this->page = ucwords($this->request[0]);
-            }else{
-                $this->page = '';   
-            }
+    public function createGetRequest(){
+        return $this->checkIfAlowed();
+    }
+
+    public function createPostRequest(){
+        return $this->checkIfAlowed();
+    }
+
+    public function checkIfAlowed(){
+
+        $type = $this->requestType();
+        $obj = json_decode(file_get_contents(MET))[0]->$type;
+        $request = $this->getRequest();
+
+        if($type == 'post'){
+
+            return $this->returnPostResponse($request, $obj);
+
         }else{
-            $this->page = '';
+
+            return $this->returnGetResponse($request, $obj);
+
+        }
+    }
+
+    public function getClassName(){
+        $request = explode("/", $this->getRequest());
+        return $request[count($request)-2];
+    }
+
+    public function getRequest(){
+        return substr($_SERVER['REQUEST_URI'], 1, strlen($_SERVER['REQUEST_URI']));
+    }
+
+    public function returnPostResponse($request, $obj){
+
+        if(array_key_exists($request, $obj)){
+
+            $name = ucfirst($this->getClassName());
+            $method = $obj->$request;
+
+            echo json_encode($name::$method());
+
+        }else{
+            echo json_encode('400 Bad request');
         }
 
     }
 
-    public function getMethod(){
-        $data = $this->checkIfMethodExists($this->request[1]);
-        // error_log('and the method is:.... '.print_r($data, 1));
-        if($data !== false){
-            return $data;
+    public function returnGetResponse($request, $obj){
+        if(array_key_exists($request, $obj)){
+            return $obj->$request;
         }else{
-            return false;
+            return 'Home';
         }
     }
-
-    public function checkIfClassExists($name){
-        if (class_exists($name)) {
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-
-    public function checkIfMethodExists($name){
-
-        $json = file_get_contents(MET);
-        $jsonObj = json_decode($json,true);
-        $obj = $jsonObj[0];
-
-        if(array_key_exists($name, $obj)){
-            error_log('method: '.print_r($obj[$name], 1));
-            return $obj[$name];
-        }else{
-            return false;
-        }
-
-    }
-
 }

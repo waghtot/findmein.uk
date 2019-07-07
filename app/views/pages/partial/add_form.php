@@ -29,10 +29,10 @@
 </div>
 
 <div class="form-group">
-      <input type="text" class="form-control" placeholder="Tytuł" id="ad_title">
+      <input type="text" class="form-control" name="title" placeholder="Tytuł" id="ad_title">
 </div>
 <div class="form-group">
-      <textarea class="form-control" rows="5" placeholder="Treść ogłoszenia" id="ad_content"></textarea>
+      <textarea class="form-control" name="content" rows="5" placeholder="Treść ogłoszenia" id="ad_content"></textarea>
 </div>
 
 <div class="form-group">
@@ -69,7 +69,7 @@
 <div class="form-group">
   <div class="row">
     <div class="col">
-      <input type="email" class="form-control" placeholder="Adres Email"  id="ad_email">
+      <input type="email" class="form-control" placeholder="Adres Email"  id="ad_email" required>
     </div>
     <div class="col">
       <input type="text" class="form-control" placeholder="Strona WWW"  id="ad_www">

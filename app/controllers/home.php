@@ -1,23 +1,40 @@
 <?php
-class Home
+class Home extends Master
 {
-    public function __construct(){
 
+    /*
+    Zaczynamy publikowac z tego miejsca widoki przez klase Viwe
+    1. Napisac klase View.
+    2. Opublikowac pierwszy elementy strony bazujac na konfiguracji z bazy danych.
+    3. Ustawic konfiguracje w bazie.
+    4. Do 17 Lipca przygotowac podstawe do dalszej pracy z mikroserwisami.
+    5. Nie zapomnij zrzucic kopi projektu do zabrania do domu lub przunies plaskiego i przegraj wszystko z basa danych wlacznie. !!! WAZNE !!!
+    */
+    public function __construct(){
+        return self::index();
     }
+
 
     public function index(){
 
+
+        $data = array();
+        $data['connection']='MMCONTENT';
+        $data['procedure']='get_Ads';
+        $data['params']['client_id'] = $_SESSION['constants']['Client_ID'];
+        $data['params']['project_id'] = $_SESSION['constants']['Project_ID'];
+        $data['params']['language_id'] = $_SESSION['constants']['language']['PL'];
+        $res = iapi_model::doIAPI('database', json_encode($data));
+        
+        return new View(get_called_class(), $res);
     }
 
     public function get_category(){
 
-        error_log('incomming post: '.print_r($_POST, 1));
-
         $data = array();
         $data['code']='600';
         $data['message']='ok';
-        echo json_encode($data);
-        error_log('outgoing json: '.print_r(json_encode($data), 1));
+        return $data;
 
     }
 
@@ -48,58 +65,73 @@ class Home
             $data['params']['range'] = $_POST['range'];
             $data['params']['postcode'] = $_POST['postcode'];
 
-            // error_log('response from db '.print_r($data, 1));
-
             $res = iapi_model::doIAPI('database', json_encode($data));
+            $odp = self::sanitaze_respons($res);
+            $odp['action']='create';
 
-            /* response:
-                code
-                message
-                ID_Content,
-                ID_Client,
-                User_Email */
+            if(self::get_user_id() !== 0){
 
-            error_log('response from db '.print_r($res, 1));
+                echo json_encode($odp);die;
 
-            // if($res['code']!='6000'){
-            //     echo "success";
-            // }else{
-            //     echo "ups...";
-            // }
 
-            // error_log('response from db '.print_r($res, 1));
+            }else{
+
+                $user = self::check_if_user_exists();
+
+                $token = self::tokenize($odp);
+                error_log('to jest z finda tokenizacja: '.print_r($token, 1));
+
+                // $email = self::get_email_template($user, $token);
+
+                // self::sendEmail();
+
+                // if(self::check_if_user_exists() == true){
+
+                // }else{
+                //     echo json_encode($odp);die;
+                // }
+                // if($odp['code']=='6000'){
+                //     $odp['action'] = 'create';
+
+                //     error_log('tokenization result: '.print_r($token, 1));
+                // }
+            }
+
+
         }
     }
 
-    public function create_token(){
+    // public function get_language_id(){
+    //     return $_SESSION['constants']['language']['PL'];
+    // }
 
-    }
+    // public function get_client_id(){
+    //    return $_SESSION['constants']['Client_ID'];
+    // }
 
-    public function get_language_id(){
-        return $_SESSION['constants']['language']['PL'];
-    }
+    // public function get_project_id(){
+    //     return $_SESSION['constants']['Project_ID'];
+    // }
 
-    public function get_client_id(){
-       return $_SESSION['constants']['Client_ID'];
-    }
+    // public function get_user_id(){
+    //     if(isset($_SESSION['user'])){
+    //         return $_SESSION['user'];
+    //     }else{
+    //         return 0;
+    //     }
+    // }
 
-    public function get_project_id(){
-        return $_SESSION['constants']['Project_ID'];
-    }
+    // public function get_parent_id(){
+    //     if(isset($_POST['parent_id'])){
+    //         return $_POST['parent_id'];
+    //     }else{
+    //         return null;
+    //     }
+    // }
 
-    public function get_user_id(){
-        if(isset($_SESSION['user'])){
-            return $_SESSION['user'];
-        }else{
-            return 0;
-        }
-    }
+    // public function tokenize(array $data){
+        
+    //     $res = iapi_model::doIAPI('tokenize', json_encode($data));
 
-    public function get_parent_id(){
-        if(isset($_POST['parent_id'])){
-            return $_POST['parent_id'];
-        }else{
-            return null;
-        }
-    }
+    // }
 }

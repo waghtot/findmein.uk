@@ -2,36 +2,40 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Bootswatch: Simplex</title>
+    <title>Find Me in UK</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" href="https://bootswatch.com/4/simplex/bootstrap.css" media="screen">
     <link rel="stylesheet" href="app/views/css/custom.min.css">
-    <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+    <link rel="stylesheet" href="app/views/css/fmu.css">
     <script src="app/views/js/sweetalert.min.js"></script>
     </head>
     <body>
 
 <!-- Top Menu -->
     <?php
-
-require_once "app/views/pages/partial/topmenu.php";
-
+        require_once "app/views/pages/partial/topmenu.php";
     ?>
+
+
 <!-- End Top Menu -->
 
 <!-- Layout drawt-->
-<?php
-require_once "app/views/pages/partial/lauout_drawt.php";
-?>
+
+    <?php
+        View::page($page, $data);
+    ?>
+
+
 <!-- End Layout -->
 
         <script type="text/javascript" src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="app/views/js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="https://bootswatch.com/_vendor/popper.js/dist/umd/popper.min.js"></script>
         <script type="text/javascript" src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="https://bootswatch.com/_assets/js/custom.js"></script>
-
         <script type="text/javascript" src="app/views/js/home/add_ads.js"></script>
+
 
     </body>
 </html>

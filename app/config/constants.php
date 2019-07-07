@@ -1,5 +1,8 @@
 <?php
-define('MET', 'app/config/methods.json');
+define('MET', 'app/config/request.json');
+define('TEMPLATES', 'app/views/templates/secure.php');
+define('PAGE', 'app/views/pages/');
+define('PARTIAL', 'app/views/pages/partial/');
 
 $_SESSION['constants'] = array(
     "language"=>array(

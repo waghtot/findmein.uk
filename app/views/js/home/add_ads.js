@@ -30,10 +30,13 @@ var newads = {
         });
 
         $('#save').click(function(){
-            newads.submit_ads(); 
+            if($('#new_ad').valid() !== false){
+                newads.submit_ads(); 
+            }
         });
 
         $('#back').hide();
+
     },
 
     print_form : function(){
@@ -89,6 +92,7 @@ var newads = {
         $.ajax({
             async: true,
             type: "POST",
+            dataType: 'json',
             url: "home/submitAds",
             data: {
                 "type" : radio,
@@ -103,13 +107,38 @@ var newads = {
                 "range" : $('#ad_city').val(),
                 "postcode" : $('#ad_postcode').val()
             }
-        }).done(function(){
-            console.log('all good, all done ' + radio + ' category ' + addtype );
+        }).done(function(resp){
+            // console.log(resp);
+
             $('#modal_add').modal('hide');
             swal(
-                "looks good", "ads has been added", "success"
+                "Ogłoszenie dodane", "Aktywuj swoje ogłoszenie klikając w link wysłany emailem na adres podany w tresci ogłoszenia.", "success"
             );
         });
+    },
+
+    validateForm : function(){
+
+        $('#new_ad').validate({
+            rules: {
+                eamil: {
+                    required: true,
+                    email: true
+                },
+
+                title: {
+                    required: true,
+                    minlength: 5
+                },
+
+                content: {
+                    required: true,
+                    minlength: 20
+                }
+                
+            }
+        });
+
     }
 
     // get_category : function(e){
