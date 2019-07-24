@@ -9,7 +9,8 @@
         "get":{
             "home":"Home",
             "home/user":"User",
-            "user":"User"
+            "user":"User",
+            "home?ads":"confirm_ads"
         }
     }
 ]

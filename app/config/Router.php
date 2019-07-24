@@ -49,7 +49,7 @@ class Router{
             return $this->returnPostResponse($request, $obj);
 
         }else{
-
+            error_log('GET response: '.print_r($this->returnGetResponse($request, $obj)));
             return $this->returnGetResponse($request, $obj);
 
         }
@@ -80,10 +80,35 @@ class Router{
     }
 
     public function returnGetResponse($request, $obj){
+        error_log('request obj: '.print_r($this->findUpdateRequest($request)));
         if(array_key_exists($request, $obj)){
             return $obj->$request;
         }else{
             return 'Home';
         }
     }
+
+    public function findUpdateRequest($data){
+        if(strpos($data, "?")){
+            $variables = array();
+            $varSet = array();
+            $variables = $this->explodeThis($data, "?");
+            $varSet = $this->collectKeyAndValue($variables[1]);
+        }
+        error_log('request from data: '.print_r($data, 1));
+    }
+
+    public function collectKeyAndValue($data){
+        $keyValue = array();
+        if(strops($data, "&")){
+            $keyValue = $this->explodeThis($data, "&");
+        }else{
+
+        }
+    }
+
+    public function explodeThis($data, $separator){
+        return explode($separator, $data);
+    }
+
 }

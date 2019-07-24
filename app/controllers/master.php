@@ -66,4 +66,9 @@ class Master
 
     }
 
+    public function sendEmail($data){
+        $res = iapi_model::doIAPI('email', json_encode($data));
+        return $res;
+    }
+
 }
