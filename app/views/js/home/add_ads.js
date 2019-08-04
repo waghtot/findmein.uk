@@ -108,12 +108,12 @@ var newads = {
                 "postcode" : $('#ad_postcode').val()
             }
         }).done(function(resp){
-            // console.log(resp);
 
             $('#modal_add').modal('hide');
             swal(
                 "Ogłoszenie dodane", "Aktywuj swoje ogłoszenie klikając w link wysłany emailem na adres podany w tresci ogłoszenia.", "success"
             );
+
         });
     },
 

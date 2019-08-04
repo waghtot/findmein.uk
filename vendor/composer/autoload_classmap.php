@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Edit' => $baseDir . '/app/controllers/edit.php',
     'Home' => $baseDir . '/app/controllers/home.php',
     'Master' => $baseDir . '/app/controllers/master.php',
     'Partial' => $baseDir . '/app/models/partil_view.php',

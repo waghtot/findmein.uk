@@ -9,7 +9,6 @@
         <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
     </p>
     </div>
-
     <div class="row">
         <div class="col-4">
             <div class="list-group">
@@ -19,7 +18,7 @@
             </div>
             <?php
 
-                show_ads(1, 0, $data);
+                Home::show_ads(1, 0, $data);
 
             ?>
         </div>
@@ -31,7 +30,7 @@
             </div>
             <?php
 
-                show_ads(2, 0, $data);
+                Home::show_ads(2, 0, $data);
 
             ?>
         </div>
@@ -43,7 +42,7 @@
             </div>
             <?php
 
-                show_ads(3, 0, $data);
+                Home::show_ads(3, 0, $data);
             
             ?>
         </div>
@@ -52,13 +51,10 @@
 
 <?php
 
-function show_ads($category, $type, $data){
-    foreach ($data AS $value){
-        if($value['Category_ID'] == $category &&  $value['Type_ID'] == $type){
-            View::partial('card_small', $value);
-        }
-    }
+if(isset($data['ads'])){
+    echo "<script src=\"app/views/js/home/ads_active.js\" type=\"text/javascript\"></script>";
 }
 
 require_once "app/views/pages/modals/modal.php";
+
 ?>

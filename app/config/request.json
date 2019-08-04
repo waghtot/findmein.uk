@@ -3,14 +3,21 @@
         "post":{
             "home/getCategory":"get_category",
             "home/submitAds":"submit_ads",
-            "home/editAds":"edit_ads"
+            "home/editAds":"edit_ads",
+            "edit/findthead":"find_the_ad",
+            "edit/adtoedit":"ad_to_edit",
+            "edit/updateAd":"update_ad",
+            "edit/aboutRenew":"ad_about_to_renew",
+            "edit/renevAd":"renew_ad",
+            "edit/deleteAd":"delete_ad"
         },
         
         "get":{
             "home":"Home",
             "home/user":"User",
             "user":"User",
-            "home?ads":"confirm_ads"
+            "home:ads":"confirm_ads",
+            "edit":"Edit"
         }
     }
 ]

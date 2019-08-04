@@ -66,9 +66,103 @@ class Master
 
     }
 
+    public function activate_ads($token, $signature){
+        $data = array();
+        $data['connection']='MMCONTENT';
+        $data['procedure']=__FUNCTION__;
+        $data['params']['token'] = $token;
+        $data['params']['signature'] = $signature;
+
+        $res = iapi_model::doIAPI('database', json_encode($data));
+        $odp = self::sanitaze_respons($res);
+
+        error_log('activate_ads: '.print_r($odp, 1));
+
+        if($odp['code']=='6000'){
+            $email = array();
+            $email['email_template'] = 'FMU_WITHOUT_ACCOUNT_02';
+            $email['email'] = $odp['Email'];
+            $email['replace']['ref'] = $odp['Ref'];
+            $email['replace']['person'] = $odp['Person'];
+            $email['user_id'] = $odp['User_ID'];                    
+            $email['content_id'] = $odp['Content_ID'];
+            $email['project_id'] = self::get_project_id();
+
+            return self::sendEmail($email);
+        }else{
+            return false;
+        }
+    }
+
     public function sendEmail($data){
         $res = iapi_model::doIAPI('email', json_encode($data));
+
+        if($res['code']=='6000'){
+            error_log('emailhas been sent');
+            return $res;
+        }else{
+            error_log('email error, email failed');
+            return false;
+        }
+
+    }
+
+    public function getContent(){
+
+        $data = array();
+        $data['connection']='MMCONTENT';
+        $data['procedure']='get_Ads';
+        $data['params']['client_id'] = $_SESSION['constants']['Client_ID'];
+        $data['params']['project_id'] = $_SESSION['constants']['Project_ID'];
+        $data['params']['language_id'] = $_SESSION['constants']['language']['PL'];
+        $res = iapi_model::doIAPI('database', json_encode($data));
         return $res;
+    }
+
+    public function getTokenFromString(string $data){
+
+        return substr($data, 0, 32);
+    }
+
+    public function getSignatureFromString($data){
+        return substr($data, -32);
+    }
+
+
+    public function checkGetData(){
+
+        $data = array();
+        $alowed ='';
+
+        foreach ($_GET as $key=>$value){
+            $data[$key] = $value;
+            if(count($_GET) > count($data)){
+                if($key == 'params'){
+                    $key = $value;
+                } 
+                $alowed .= $key.":";
+            }else{
+                $alowed .= $key;
+            }
+        }
+
+        if(!empty($data)){
+
+            $list = Router::getAlowedList('get');
+
+            if(Router::checkOnTheList($alowed, $list)!==false){
+            
+                $getMethodName = $list->$alowed;
+                $name = ucfirst($data['params']);
+                unset($_GET['params']);
+                $data = $name::$getMethodName($_GET);
+                return $data;
+
+            }
+
+        }else{
+            return false;
+        }
     }
 
 }

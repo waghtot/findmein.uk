@@ -1,4 +1,4 @@
-<script type="text/javascript" src="app/views/js/home/prev_ads.js"></script>
+<!-- <script type="text/javascript" src="app/views/js/home/prev_ads.js"></script> -->
 
 
 <div id="this_prev"></div>
@@ -87,6 +87,11 @@
     <div class="col">
       <input type="text" class="form-control" placeholder="Kod Pocztowy" id="ad_postcode">
     </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <div id="button_set">
   </div>
 </div>
 

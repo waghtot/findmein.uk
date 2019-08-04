@@ -7,8 +7,13 @@ namespace Composer\Autoload;
 class ComposerStaticInit4ee0b5fe6cf90a4714bf787e81562b10
 {
     public static $classMap = array (
+        'Edit' => __DIR__ . '/../..' . '/app/controllers/edit.php',
         'Home' => __DIR__ . '/../..' . '/app/controllers/home.php',
+        'Master' => __DIR__ . '/../..' . '/app/controllers/master.php',
+        'Partial' => __DIR__ . '/../..' . '/app/models/partil_view.php',
         'Router' => __DIR__ . '/../..' . '/app/config/Router.php',
+        'User' => __DIR__ . '/../..' . '/app/controllers/user.php',
+        'View' => __DIR__ . '/../..' . '/app/config/views.php',
         'iapi_model' => __DIR__ . '/../..' . '/app/models/iapi_model.php',
     );
 

@@ -2,31 +2,20 @@
 class Home extends Master
 {
 
-    /*
-    Zaczynamy publikowac z tego miejsca widoki przez klase Viwe
-    1. Napisac klase View.
-    2. Opublikowac pierwszy elementy strony bazujac na konfiguracji z bazy danych.
-    3. Ustawic konfiguracje w bazie.
-    4. Do 17 Lipca przygotowac podstawe do dalszej pracy z mikroserwisami.
-    5. Nie zapomnij zrzucic kopi projektu do zabrania do domu lub przunies plaskiego i przegraj wszystko z basa danych wlacznie. !!! WAZNE !!!
-    */
     public function __construct(){
         return self::index();
     }
 
 
     public function index(){
-
-
         $data = array();
-        $data['connection']='MMCONTENT';
-        $data['procedure']='get_Ads';
-        $data['params']['client_id'] = $_SESSION['constants']['Client_ID'];
-        $data['params']['project_id'] = $_SESSION['constants']['Project_ID'];
-        $data['params']['language_id'] = $_SESSION['constants']['language']['PL'];
-        $res = iapi_model::doIAPI('database', json_encode($data));
-        
-        return new View(get_called_class(), $res);
+        $data = self::getContent();
+        if(Master::checkGetData()['code'] == 6000){
+            $data['ads'] = 1;
+        }
+
+        return new View(get_called_class(), $data);
+
     }
 
     public function get_category(){
@@ -41,15 +30,6 @@ class Home extends Master
     public function submit_ads(){
         if(isset($_POST)){
 
-            // [dev]
-            // Language[] = 616
-            // Language[] = 826
-            // ProjectID = 3
-            // ClientID = 1
-
-
-            // error_log('show me what is in user id: '.print_r(self::get_user_id(), 1));
-            // exit;
             $data = array();
             $data['connection']='MMCONTENT';
             $data['procedure']=__FUNCTION__;
@@ -74,7 +54,8 @@ class Home extends Master
 
             if(self::get_user_id() !== 0){
 
-                echo json_encode($odp);die;
+                echo json_encode($odp);
+                die;
 
 
             }else{
@@ -87,22 +68,13 @@ class Home extends Master
 
                     if($token['code']=='6000'){
 
-                        // ['email_template']
-                        // ['token']
-                        // ['person']
-                        // ['email']
-
                         $data = array();
                         $data['email_template'] = 'FMU_WITHOUT_ACCOUNT_01'; 
-                        $data['token'] = $token['Token'];
+                        $data['replace']['token'] = $token['Token'];
                         $data['email'] = $_POST['email'];
                         $data['project_id'] = self::get_project_id();
 
-                        if(self::sendEmail($data)['code'] == '6000'){
-                            error_log('email zostal wyslany');
-                        }else{
-                            error_log('email zdechl');
-                        }
+                        self::sendEmail($data);
 
                     }
 
@@ -110,6 +82,29 @@ class Home extends Master
 
             }
 
+        }
+    }
+
+    public function confirm_ads($data){
+
+        $newdata = array();
+
+        foreach($data as $value){
+            $newdata=$value;
+        }
+
+        $token = self::getTokenFromString($newdata);
+        $signature = self::getSignatureFromString($newdata);
+
+        $res = self::activate_ads($token, $signature);
+        return $res;
+    }
+
+    function show_ads($category, $type, $data){
+        foreach ($data AS $value){
+            if(isset($value['Category_ID']) && $value['Category_ID'] == $category &&  $value['Type_ID'] == $type){
+                View::partial('card_small', $value);
+            }
         }
     }
 }
