@@ -15,7 +15,13 @@ if(isset($_SESSION['CID'])){
 ?>
 <div class="container">
     <div class ="row">
-        <div class = "col-md-8">
+    <div class = "col-md-3">
+        panel reklamowy
+            <?php
+                    // require "app/views/pages/partial/info_card.php";
+            ?>
+        </div>
+        <div class = "col-md-6">
             <?php
                 if($data['ad'] == 1){
                     require_once "app/views/pages/partial/add_form.php";
@@ -23,10 +29,14 @@ if(isset($_SESSION['CID'])){
                 }
             ?>
         </div>
-        <div class = "col-md-4">
+        <div class = "col-md-3">
             <?php
                     require "app/views/pages/partial/info_card.php";
             ?>
         </div>
     </div>
 </div>
+
+<?php
+    require_once "app/views/pages/modals/modal.php";
+?>

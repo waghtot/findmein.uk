@@ -17,10 +17,9 @@ var edit = {
 
             edit.ad_about_to_renew();
 
-
-                $('#btn_renew').click(function(){
-                    edit.renew_ad();
-                });
+            $('#btn_renew').click(function(){
+                edit.renew_ad();
+            });
             
             $('#btn_delete').click(function(){
 

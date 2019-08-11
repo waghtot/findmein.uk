@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 <div class="container">
-  <a class="navbar-brand" href="#">FindMein.uk</a>
+  <a class="navbar-brand" href="./">FindMein.uk</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -18,6 +18,9 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Dodaj Ogłoszenie</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" id="login">Logowanie/rejestracja</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">

@@ -1,25 +1,19 @@
 var access = {
-    initialise : function(){
+    start_action : function(){
         $('#check_me').click(function(){
-
-            // if(access.validate()==true){
-                access.findthead();
-                // swal("No Brawo", "Wyglada na to ze wiesz jak klikac w klawisze :)", "success").then(function(){
-                //     window.location = "./edit";
-                // });
-            // }else{
-            //     swal("Cos poszlo nie tak", "Upewnij sie podane dane sa poprawne", "warning").then(function(){
-            //         window.location = "./edit";
-            //     });
-            // }
-
-
+            if($('#ad_access').valid() !== false){
+                access.findthead(); 
+            }else{
+                swal("Cos poszlo nie tak", "Upewnij sie podane dane sa poprawne", "error").then(function(){
+                    window.location = "./edit";
+                });
+            }
         });
     },
 
-    validate : function () {
-        return true;
-    },
+    // validate : function () {
+    //     return true;
+    // },
 
     findthead : function (){
         $.ajax({
@@ -33,25 +27,42 @@ var access = {
             }
         }).done(function(e){
             console.log(e);
-            var message = 'to jest inna wiadomosc na powodzenie samej akcji z pisaniem wiadomosci dla uzytkownikow';
+
             if(e.code !== '6000'){
+                var message = 'Szukane ogłoszenie wygasło lub zostało usunięte';
                 swal(
-                    "Ogłoszenie dodane", message, "warning"
+                    "Błąd Wyszukiwania", message, "warning"
                 );
             }else{
+                var message = 'Twoje ogłoszeie zostało znalezione i jest gotowe do edycji';
                 swal(
-                    "Ogłoszenie dodane", message, "success"
+                    "Edycja ogłoszenia", message, "success"
                 ).then(function(){
                     window.location = "./edit";
                 });
             }
 
         });
+    },
+
+    validateForm : function(){
+
+        $('#ad_access').validate({
+            rules: {
+                eamil: {
+                    required: true,
+                    email: true
+                }                
+            },
+            message : {
+                email : ''
+            }
+        });
     }
 }
 
 var init = function(){
-    access.initialise();    
+    access.start_action();    
 }
 
 init();

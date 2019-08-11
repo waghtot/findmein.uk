@@ -165,4 +165,19 @@ class Master
         }
     }
 
+    public function create_user(){
+        if(isset($_POST) && !empty($_POST)){
+            $data = array();
+            $data['connection']='MMCORE';
+            $data['procedure']=__FUNCTION__;
+            $data['params']['client_id'] = $_SESSION['constants']['Client_ID'];
+            $data['params']['project_id'] = $_SESSION['constants']['Project_ID'];
+            $data['params']['email'] = $_POST['email'];
+            $data['params']['password'] = md5($_POST['password']);
+
+            $res = iapi_model::doIAPI('database', json_encode($data));
+            return self::sanitaze_respons($res);
+        }
+    }
+
 }

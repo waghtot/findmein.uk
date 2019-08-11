@@ -27,6 +27,7 @@ class Edit extends Master
             $data = array();
             $data['connection']='MMCONTENT';
             $data['procedure']=__FUNCTION__;
+            $data['params']['projectID'] = self::get_project_id();
             $data['params']['ref'] = $_POST['refnum'];
             $data['params']['signature'] = md5($_POST['signature']);
 

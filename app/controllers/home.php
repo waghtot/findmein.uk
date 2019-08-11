@@ -43,7 +43,7 @@ class Home extends Master
             $data['params']['content'] = $_POST['content'];
             $data['params']['person'] = $_POST['person'];
             $data['params']['phone'] = $_POST['phone'];
-            $data['params']['email'] = $_POST['email'];
+            $data['params']['email'] = strtolower($_POST['email']);
             $data['params']['www'] = $_POST['www'];
             $data['params']['range'] = $_POST['range'];
             $data['params']['postcode'] = $_POST['postcode'];
@@ -107,4 +107,27 @@ class Home extends Master
             }
         }
     }
+
+    public function login(){
+        if(isset($_POST) && !empty($_POST)){
+            $user = self::check_if_user_exists();
+            if($user['UserID'] == 0){
+
+                $rsp = self::create_user());
+                echo json_encode(self::create_user());
+                die;
+            }else{
+                echo json_encode($user);
+                die;
+                error_log('from login window: '.print_r($user, 1));
+            }
+        }
+    }
+
+    public function forgoten_password(){
+        error_log('forgoten password: '.print_r($_POST, 1));
+        echo json_encode('ok');
+        die;
+    }
+
 }

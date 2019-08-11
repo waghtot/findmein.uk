@@ -4,26 +4,28 @@ var addtype = '';
 
 var newads = {
     initialise : function(){
-
         $('#trade').click(function(){
+            newads.clearmodal();
             addtype = newads.show_type('job');
-            $('#modal_add').slideDown('slow').modal('show');
+            $('#modal_add').modal('show');
             newads.print_form();
             // newads.get_category(addtype);
             newads.change_title('Praca');
         });
         
         $('#services').click(function(){
+            newads.clearmodal();
             addtype = newads.show_type('services');
-            $('#modal_add').slideDown('slow').modal('show');
+            $('#modal_add').modal('show');
             newads.print_form();
             // newads.get_category(addtype);
             newads.change_title('Usługi');
         });
 
         $('#property').click(function(){
+            newads.clearmodal();
             addtype = newads.show_type('property');
-            $('#modal_add').slideDown('slow').modal('show');
+            $('#modal_add').modal('show');
             newads.print_form();
             // newads.get_category(addtype);
             newads.change_title('Nieruchomości');
@@ -34,9 +36,7 @@ var newads = {
                 newads.submit_ads(); 
             }
         });
-
-        $('#back').hide();
-
+        
     },
 
     print_form : function(){
@@ -139,6 +139,20 @@ var newads = {
             }
         });
 
+    },
+
+    clearmodal : function(){
+
+        $('#modal_add').removeAttr( "class" ).attr("class", "modal fade bd-example-modal-md");
+        $('#modalsize').removeAttr( "class" ).attr("class", "modal-dialog modal-md modal-dialog-centered");
+
+        $('#modal_form').empty();
+        $('#modal_title').empty();
+
+        $('#save').show();
+        $('#back').hide();
+        $('#logreg').hide();
+
     }
 
     // get_category : function(e){
@@ -168,7 +182,7 @@ var newads = {
 }
 
 var init = function(){
-    newads.initialise();    
+    newads.initialise();
 }
 
 init();
