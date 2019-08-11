@@ -113,7 +113,7 @@ class Home extends Master
             $user = self::check_if_user_exists();
             if($user['UserID'] == 0){
 
-                $rsp = self::create_user());
+                $rsp = self::create_user();
                 echo json_encode(self::create_user());
                 die;
             }else{
