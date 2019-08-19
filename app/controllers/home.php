@@ -1,21 +1,20 @@
 <?php
 class Home extends Master
 {
-
+    private $data = array();
     public function __construct(){
         return self::index();
     }
 
 
     public function index(){
+        $conferm = 0;
         $data = array();
         $data = self::getContent();
-        if(Master::checkGetData()['code'] == 6000){
-            $data['ads'] = 1;
-        }
-
+        // $data['ads'] = self::checkIfActive();
+        // error_log('shoe data: '.print_r(end($data), 1));
+        unset($_SESSION['ads']);
         return new View(get_called_class(), $data);
-
     }
 
     public function get_category(){
@@ -41,6 +40,8 @@ class Home extends Master
             $data['params']['category'] = $_POST['category'];
             $data['params']['title'] = $_POST['title'];
             $data['params']['content'] = $_POST['content'];
+            $data['params']['en_title'] = $_POST['en_title'];
+            $data['params']['en_content'] = $_POST['en_content'];
             $data['params']['person'] = $_POST['person'];
             $data['params']['phone'] = $_POST['phone'];
             $data['params']['email'] = strtolower($_POST['email']);
@@ -87,17 +88,28 @@ class Home extends Master
 
     public function confirm_ads($data){
 
-        $newdata = array();
+        error_log('any params?: '.print_r($data, 1));
 
+        $newdata = array();
+        $data = Master::getParams();
+        error_log('any params?: '.print_r($data, 1));
         foreach($data as $value){
             $newdata=$value;
         }
+
+        error_log('any params?: '.print_r($newdata, 1));
 
         $token = self::getTokenFromString($newdata);
         $signature = self::getSignatureFromString($newdata);
 
         $res = self::activate_ads($token, $signature);
-        return $res;
+        if($res['code']==6000){
+            return $res;
+        }
+    }
+
+    public function checkIfActive(){
+        error_log('if still have request: '.print_r($_GET, 1));
     }
 
     function show_ads($category, $type, $data){
@@ -113,19 +125,18 @@ class Home extends Master
             $user = self::check_if_user_exists();
             if($user['UserID'] == 0){
                 $rsp = self::create_user();
-                
-                echo json_encode(self::create_user());
+
+                echo json_encode($rsp);
                 die;
             }else{
+
                 echo json_encode($user);
                 die;
-                error_log('from login window: '.print_r($user, 1));
             }
         }
     }
 
     public function forgoten_password(){
-        error_log('forgoten password: '.print_r($_POST, 1));
         echo json_encode('ok');
         die;
     }

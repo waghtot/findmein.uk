@@ -23,7 +23,7 @@ if(isset($_SESSION['CID'])){
         </div>
         <div class = "col-md-6">
             <?php
-                if($data['ad'] == 1){
+                if(isset($data['ad']) && $data['ad'] == 1){
                     require_once "app/views/pages/partial/add_form.php";
                     require_once "app/views/pages/navi/buttons.php";
                 }

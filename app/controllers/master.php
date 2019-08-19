@@ -76,8 +76,6 @@ class Master
         $res = iapi_model::doIAPI('database', json_encode($data));
         $odp = self::sanitaze_respons($res);
 
-        error_log('activate_ads: '.print_r($odp, 1));
-
         if($odp['code']=='6000'){
             $email = array();
             $email['email_template'] = 'FMU_WITHOUT_ACCOUNT_02';
@@ -119,6 +117,16 @@ class Master
         return $res;
     }
 
+    public function getParams(){
+        if(!empty($_GET)){
+            unset($_GET['params']);
+            error_log('return get: '.print_r($_GET, 1));
+            return $_GET;
+        }else{
+            return false;
+        }
+    }
+
     public function getTokenFromString(string $data){
 
         return substr($data, 0, 32);
@@ -146,12 +154,16 @@ class Master
             }
         }
 
+
+        error_log('getData from Master: '.print_r($data, 1));
+
+
         if(!empty($data)){
 
             $list = Router::getAlowedList('get');
 
             if(Router::checkOnTheList($alowed, $list)!==false){
-            
+                error_log('check on the list if get check data: '.print_r($alowed, 1));
                 $getMethodName = $list->$alowed;
                 $name = ucfirst($data['params']);
                 unset($_GET['params']);
@@ -179,5 +191,8 @@ class Master
             return self::sanitaze_respons($res);
         }
     }
+
+
+    
 
 }

@@ -2,7 +2,7 @@
     {
         "post":{
             "home/getCategory":"get_category",
-            "home/submitAds":"submit_ads",
+            "home/submitAds":"hoem@submit_ads",
             "home/editAds":"edit_ads",
             "home/login":"login",
             "home/forgotenpassword":"forgoten_password",
@@ -16,10 +16,9 @@
         
         "get":{
             "home":"Home",
-            "home/user":"User",
             "user":"User",
-            "home:ads":"confirm_ads",
-            "edit":"Edit"
+            "edit":"Edit",
+            "home/validate":"Home@confirm_ads"
         }
     }
 ]

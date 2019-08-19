@@ -19,6 +19,15 @@ class Edit extends Master
             }
         }
 
+        $data = self::getContent();
+        if(Master::checkGetData()['code'] == 6000){
+            $data['ads'] = 1;
+        }
+
+        error_log('getData: '.print_r(Master::checkGetData(), 1));
+
+
+
         return new View(get_called_class(), $data);
     }
 

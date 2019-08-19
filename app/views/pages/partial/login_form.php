@@ -11,4 +11,4 @@
 </div>
 </form>
 
-<script type="text/javascript" src="app/views/js/home/forgotrnpassword.js"></script>
+<script type="text/javascript" src="../app/views/js/home/forgotenpassword.js"></script>

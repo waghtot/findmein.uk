@@ -1,4 +1,5 @@
 <?php
+
 class Router{
 
     public function __construct(){
@@ -18,7 +19,7 @@ class Router{
         switch($this->requestType()){
 
             case 'get':
-                $this->createGetRequest()::index();
+                $this->createGetRequest();
             break;
 
             case 'post':
@@ -26,7 +27,7 @@ class Router{
             break;
 
             default:
-                $this->createGetRequest()::index();
+                $this->createGetRequest();
             break;
 
         }
@@ -69,16 +70,22 @@ class Router{
 
     public function getClassName(){
 
-        $request = explode("/", $this->getRequest());
+        if(isset($_GET['params'])){
+            return $_GET['params'];
+        }else{
+            return 'home';
+        }
 
-        return $request[count($request)-2];
+
 
     }
 
     public function getRequest(){
-
-        return substr($_SERVER['REQUEST_URI'], 1, strlen($_SERVER['REQUEST_URI']));
-
+        if(!isset($_GET['params'])){
+            return 'home';
+        }else{
+            return $_GET['params'];
+        }
     }
 
     public function returnPostResponse($request, $obj){
@@ -86,6 +93,8 @@ class Router{
         if($this->checkOnTheList($request, $obj)!==false){
 
             $name = ucfirst($this->getClassName());
+            error_log('post class name: '.print_r($name, 1));
+
             $method = $obj->$request;
 
             echo json_encode($name::$method());
@@ -99,11 +108,30 @@ class Router{
     }
 
     public function returnGetResponse($request, $obj){
-
+        error_log('method name: ' .print_r($request, 1));
         if($this->checkOnTheList($request, $obj)!==false){
 
-            return $obj->$request;
+            $name = ucfirst($this->getClassName());
+            $method = $obj->$request;
 
+            if(strpos($method, '@')){
+                unset($_GET['params']);
+                $name = substr($method, 0, strpos($method, '@'));
+                $method = substr($method, strpos($method, '@')+1, strlen($method));
+                $data = array();
+                $data = $name::$method($_GET);
+                if(!empty($data) && $data['code']== 6000){
+                    $_SESSION['validate'] = $data;
+                }
+
+                error_log('data from method before class: '.print_r($data, 1));
+
+                $class = new $name();
+                return $class->index();
+            }else{
+                // error_log('a jesli nie ma at: '.print_r($obj->$request, 1));
+                return new $name();
+            }
         }else{
 
             return 'Home';

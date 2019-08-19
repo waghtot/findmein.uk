@@ -43,7 +43,7 @@ var newads = {
         $.ajax({
             async: true,
             type: "GET",
-            url: "app/views/pages/partial/add_form.php",
+            url: "http://findmein.dev.uk/app/views/pages/partial/add_form.php",
             data: {},
             success: function(data){
               $('#modal_form').html(data);
@@ -78,7 +78,7 @@ var newads = {
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             type: "GET",
-            url: "app/views/pages/partial/add_category.php",
+            url: "http://findmein.dev.uk/app/views/pages/partial/add_category.php",
             data: {
                 "category_id" : e
             },
@@ -99,7 +99,8 @@ var newads = {
                 "category" : addtype,
                 "title" : $('#ad_title').val(),
                 "content" : $('#ad_content').val(),
-                "img" : $('#ad_img').val(),
+                "en_title" : $('#en_title').val(),
+                "en_content" : $('#en_content').val(),
                 "person" : $('#ad_person').val(),
                 "phone" : $('#ad_phone').val(),
                 "email" : $('#ad_email').val(),
@@ -154,30 +155,6 @@ var newads = {
         $('#logreg').hide();
 
     }
-
-    // get_category : function(e){
-    //     $.ajaxPrefilter(function( options, original_Options, jqXHR ) {
-    //         options.async = true;
-    //     });
-    //     $.ajax({
-    //         async: true,
-    //         cache: false,
-    //         dataType: "json",
-    //         contentType: "application/json; charset=utf-8",
-    //         type: "POST",
-    //         url: "home/getCategory",
-    //         data: {
-    //             "category_id" : e
-    //         }
-    //         // ,
-    //         // success : function(data){
-    //         //     console.log(JSON.parse(data));
-    //         // }
-    //     }).done(function(res){
-
-    //         console.log(JSON.parse(res.code));
-    //     });
-    // }
 
 }
 

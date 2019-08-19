@@ -51,8 +51,14 @@
 
 <?php
 
+if(isset($_SESSION['validate'])){
+    echo "<script src=\"../app/views/js/home/ads_active.js\" type=\"text/javascript\"></script>";
+}
+
+unset($_SESSION['validate']);
+
 if(isset($data['ads'])){
-    echo "<script src=\"app/views/js/home/ads_active.js\" type=\"text/javascript\"></script>";
+    echo "<script src=\"../app/views/js/home/ads_active.js\" type=\"text/javascript\"></script>";
 }
 
 require_once "app/views/pages/modals/modal.php";

@@ -19,6 +19,7 @@ var login = {
                     "password" : $('#log_passw').val()
                 }
             }).done(function(e){
+                console.log(e.code);
                 if(e.code == '6002'){
                     $('#fp').html('<a href="#" id="zp">Zapomniałem hasła</a>');
                 }else if(e.NewAcc == 1){
@@ -29,7 +30,11 @@ var login = {
                         window.location = "./";                        
                     });
                 }else{
-                    window.location = "./";
+                    swal(
+                        "Hurrrra!!!", "Zalogowales sie wlasnie na swoje konto", "success"
+                    ).then(function(){
+                        window.location = "./";
+                    });
                 }
             });
         });
@@ -40,7 +45,7 @@ var login = {
         $.ajax({
             async: true,
             type: "GET",
-            url: "app/views/pages/partial/login_form.php",
+            url: "../app/views/pages/partial/login_form.php",
             data: {},
             success: function(data){
               $('#modal_form').html(data);
