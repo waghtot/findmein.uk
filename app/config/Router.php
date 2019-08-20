@@ -69,11 +69,15 @@ class Router{
     }
 
     public function getClassName(){
-
-        if(isset($_GET['params'])){
-            return $_GET['params'];
+        if($this->requestType() == 'post'){
+            $request = explode("/", $this->getRequest());
+            return $request[count($request)-2];
         }else{
-            return 'home';
+            if(isset($_GET['params'])){
+                return $_GET['params'];
+            }else{
+                return 'home';
+            }
         }
 
 
